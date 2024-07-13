@@ -196,7 +196,13 @@ CREATE TABLE IF NOT EXISTS `detalle_factura` (
     FOREIGN KEY (`id_factura`)
     REFERENCES `factura` (`id_factura`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE NO ACTION,
+  CONSTRAINT `id_producto`
+	FOREIGN KEY (`id_Producto`)
+	REFERENCES `producto` (`id_producto`)
+	ON DELETE NO ACTION
+ 	ON UPDATE NO ACTION)
+
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
@@ -304,7 +310,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `producto` ;
 
 CREATE TABLE IF NOT EXISTS `producto` (
-  `idproducto` INT NOT NULL AUTO_INCREMENT,
+  `id_producto` INT NOT NULL AUTO_INCREMENT,
   `producto_nombre` VARCHAR(45) NULL,
   `producto_descripcion` VARCHAR(1000) NULL,
   `producto_precio` DOUBLE NULL,
@@ -313,13 +319,8 @@ CREATE TABLE IF NOT EXISTS `producto` (
   `producto_modelo` VARCHAR(45) NULL,
   `producto_peso` DECIMAL NULL,
   `producto_fecha_fabricacion` DATE NULL,
-  `detalle_factura_id_detalle_factura` INT(11) NOT NULL,
-  PRIMARY KEY (`idproducto`, `detalle_factura_id_detalle_factura`),
-  CONSTRAINT `fk_producto_detalle_factura1`
-    FOREIGN KEY (`detalle_factura_id_detalle_factura`)
-    REFERENCES `detalle_factura` (`id_detalle_factura`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  `detalle_factura_id_detalle_factura` INT(11)DEFAULT NULL,
+  PRIMARY KEY (`id_producto`))
 ENGINE = InnoDB;
 
 
@@ -382,15 +383,13 @@ INSERT INTO usuario_proovedor (num_cuenta, id_rol_usuario) VALUES ('123456', 1);
 INSERT INTO facebook_persona (id_persona, url_facebook_persona, persona_id_persona) VALUES (1, 'http://facebook.com/juan', 1);
 
 -- Insertar datos en la tabla producto
-INSERT INTO producto (producto_nombre, producto_descripcion, producto_precio, producto_cantidad_stock, producto_marca, producto_modelo, producto_peso, producto_fecha_fabricacion, detalle_factura_id_detalle_factura) VALUES ('Producto A', 'Descripcion A', 50.00, 100, 'Marca A', 'Modelo A', 1.5, '2023-01-01', 1);
+INSERT INTO producto (producto_nombre, producto_descripcion, producto_precio, producto_cantidad_stock, producto_marca, producto_modelo, producto_peso, producto_fecha_fabricacion) VALUES ('Producto A', 'Descripcion A', 50.00, 100, 'Marca A', 'Modelo A', 1.5, '2023-01-01');
 
 -- Confirmar transacción
 COMMIT;
 
-
-/*
 SELECT * FROM producto;
-
+/*
 -- PRUEBAS
 SELECT * FROM rol_usuario;
 INSERT INTO usuario (nombre_usuario, contraseña_usuario,rol_usuario_id_rol_usuario)
@@ -398,4 +397,11 @@ VALUES ("pedro","picapiedradijoasi1",1);
 SELECT * FROM usuario;
 DELETE FROM usuario WHERE id_usuario = 3;
 
+
+
+
+
+SELECT *
+FROM persona p
+INNER JOIN apellido_persona ap ON p.id_persona = ap.persona_id_persona;
 */

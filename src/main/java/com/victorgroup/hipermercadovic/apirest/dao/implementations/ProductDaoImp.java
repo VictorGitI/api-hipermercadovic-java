@@ -2,7 +2,6 @@ package com.victorgroup.hipermercadovic.apirest.dao.implementations;
 
 import com.victorgroup.hipermercadovic.apirest.dao.interfaces.IProductDao;
 import com.victorgroup.hipermercadovic.apirest.models.ProductEntity;
-import com.victorgroup.hipermercadovic.apirest.models.UserEntity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
@@ -12,11 +11,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-@Transactional
 public class ProductDaoImp implements IProductDao {
 
     @PersistenceContext
     private EntityManager entityManager;
+    private IProductDao productDao;
 
     @Transactional(readOnly = true)
     @Override
@@ -26,12 +25,28 @@ public class ProductDaoImp implements IProductDao {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<ProductEntity> findById(int id) {
-        return Optional.empty();
+        return Optional.ofNullable(this.entityManager.find(ProductEntity.class, id));
     }
 
     @Override
-    public ProductEntity saveProduct(UserEntity userEntity) {
-        return null;
+    @Transactional
+    public void saveProduct(ProductEntity productEntity) {
+         this.entityManager.persist(productEntity);
+         this.entityManager.flush();
     }
+
+    @Override
+    @Transactional
+    public void updateProduct(ProductEntity productEntity) {
+        this.entityManager.merge(productEntity);
+    }
+
+    @Override
+    @Transactional
+    public void deleteProduct(ProductEntity productEntity) {
+        this.entityManager.remove(productEntity);
+    }
+
 }

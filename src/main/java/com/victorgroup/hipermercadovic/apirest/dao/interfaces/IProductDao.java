@@ -11,5 +11,9 @@ public interface IProductDao {
 
     Optional<ProductEntity> findById(int id);
 
-    ProductEntity saveProduct(UserEntity userEntity);
+    void saveProduct(ProductEntity productEntity);
+
+    void updateProduct(ProductEntity productEntity);
+
+    void deleteProduct(ProductEntity productEntity);
 }

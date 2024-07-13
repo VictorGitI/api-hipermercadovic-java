@@ -15,12 +15,13 @@ public class ProductDTO {
     private String productModel;
     private BigDecimal productWeight;
     private Date productManufacturingDate;
-    private int productBillDetail;
 
     public ProductDTO() {
     }
 
-    public ProductDTO(int productId, String productName, String productDescription, double price, int productStock, String productBrand, String productModel, BigDecimal productWeight, Date productManufacturingDate, int productBillDetail) {
+    public ProductDTO(int productId, String productName, String productDescription, double price,
+                      int productStock, String productBrand, String productModel, BigDecimal productWeight,
+                      Date productManufacturingDate) {
         this.productId = productId;
         this.productName = productName;
         this.productDescription = productDescription;
@@ -30,7 +31,6 @@ public class ProductDTO {
         this.productModel = productModel;
         this.productWeight = productWeight;
         this.productManufacturingDate = productManufacturingDate;
-        this.productBillDetail = productBillDetail;
     }
 
     public int getProductId() {
@@ -103,13 +103,5 @@ public class ProductDTO {
 
     public void setProductManufacturingDate(Date productManufacturingDate) {
         this.productManufacturingDate = productManufacturingDate;
-    }
-
-    public int getProductBillDetail() {
-        return productBillDetail;
-    }
-
-    public void setProductBillDetail(int productBillDetail) {
-        this.productBillDetail = productBillDetail;
     }
 }

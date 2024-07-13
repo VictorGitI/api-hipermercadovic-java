@@ -10,7 +10,7 @@ import java.util.Date;
 public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idproducto")
+    @Column(name = "id_producto")
     private int productId;
     @Column(name = "producto_nombre")
     private String productName;
@@ -28,8 +28,6 @@ public class ProductEntity {
     private BigDecimal productWeight;
     @Column(name = "producto_fecha_fabricacion")
     private Date productManufacturingDate;
-    @Column(name = "detalle_factura_id_detalle_factura")
-    private int productBillDetail;
 
     public int getProductId() {
         return productId;
@@ -101,13 +99,5 @@ public class ProductEntity {
 
     public void setProductManufacturingDate(Date productManufacturingDate) {
         this.productManufacturingDate = productManufacturingDate;
-    }
-
-    public int getProductBillDetail() {
-        return productBillDetail;
-    }
-
-    public void setProductBillDetail(int productBillDetail) {
-        this.productBillDetail = productBillDetail;
     }
 }

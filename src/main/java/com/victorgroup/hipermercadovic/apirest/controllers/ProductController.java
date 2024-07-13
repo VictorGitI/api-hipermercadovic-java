@@ -19,14 +19,24 @@ public class ProductController {
     public ResponseEntity<List<ProductDTO>>findAll(){
         return new ResponseEntity<>(this.productService.findAll(), HttpStatus.OK);
     }
-/*
-    @GetMapping("/products")
+
+    @GetMapping("/products/{id}")
     public ResponseEntity<ProductDTO>findById(@PathVariable int id){
-        return new ResponseEntity<ProductDTO>(this.productService.findById(id), HttpStatus.OK);
+        return new ResponseEntity<>(this.productService.findById(id), HttpStatus.OK);
     }
 
     @PostMapping("/products")
     public ResponseEntity<ProductDTO>createProduct(@RequestBody ProductDTO productDTO){
         return new ResponseEntity<>(this.productService.createProduct(productDTO), HttpStatus.CREATED);
-    }*/
+    }
+
+    @PutMapping("/products/{id}")
+    public ResponseEntity<ProductDTO>updateProduct(@RequestBody ProductDTO productDTO,@PathVariable int id){
+        return new ResponseEntity<>(this.productService.updateProduct(productDTO, id), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/products/{id}")
+    public ResponseEntity<String>deleteProduct(@PathVariable int id){
+        return new ResponseEntity<>(this.productService.deleteProduct(id), HttpStatus.NO_CONTENT);
+    }
 }

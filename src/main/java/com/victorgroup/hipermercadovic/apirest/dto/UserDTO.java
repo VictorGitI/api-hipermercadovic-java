@@ -7,16 +7,14 @@ public class UserDTO {
     private int userId;
     private String userName;
     private String userPassword;
-    private int idRolUsuario;
 
     public UserDTO() {
     }
 
-    public UserDTO(int userId, String userName, String userPassword, int idRolUsuario) {
+    public UserDTO(int userId, String userName, String userPassword) {
         this.userId = userId;
         this.userName = userName;
         this.userPassword = userPassword;
-        this.idRolUsuario = idRolUsuario;
     }
 
     public int getUserId() {
@@ -43,11 +41,4 @@ public class UserDTO {
         this.userPassword = userPassword;
     }
 
-    public int getIdRolUsuario() {
-        return idRolUsuario;
-    }
-
-    public void setIdRolUsuario(int idRolUsuario) {
-        this.idRolUsuario = idRolUsuario;
-    }
 }

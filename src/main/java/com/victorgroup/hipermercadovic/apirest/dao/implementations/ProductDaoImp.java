@@ -15,7 +15,6 @@ public class ProductDaoImp implements IProductDao {
 
     @PersistenceContext
     private EntityManager entityManager;
-    private IProductDao productDao;
 
     @Transactional(readOnly = true)
     @Override

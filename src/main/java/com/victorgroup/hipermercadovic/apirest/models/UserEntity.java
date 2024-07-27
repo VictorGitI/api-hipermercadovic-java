@@ -1,17 +1,16 @@
 package com.victorgroup.hipermercadovic.apirest.models;
 import jakarta.persistence.*;
-/*
+
 @Entity
 @Table(name="usuario")
-*/
 public class UserEntity {
-    /*@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
     private int userId;
     @Column(name = "nombre_usuario")
     private String userName;
-    @Column(name = "contraseñia_usuario")
+    @Column(name = "contraseña_usuario")
     private String userPassword;
     @Column(name = "rol_usuario_id_rol_usuario")
     private int idRolUsuario;
@@ -46,5 +45,5 @@ public class UserEntity {
 
     public void setIdRolUsuario(int idRolUsuario) {
         this.idRolUsuario = idRolUsuario;
-    }*/
+    }
 }

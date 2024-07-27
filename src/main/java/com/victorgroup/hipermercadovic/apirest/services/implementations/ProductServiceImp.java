@@ -2,16 +2,11 @@ package com.victorgroup.hipermercadovic.apirest.services.implementations;
 
 import com.victorgroup.hipermercadovic.apirest.dao.interfaces.IProductDao;
 import com.victorgroup.hipermercadovic.apirest.dto.ProductDTO;
-import com.victorgroup.hipermercadovic.apirest.dto.UserDTO;
 import com.victorgroup.hipermercadovic.apirest.models.ProductEntity;
-import com.victorgroup.hipermercadovic.apirest.models.UserEntity;
 import com.victorgroup.hipermercadovic.apirest.services.interfaces.IProductService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -78,7 +73,7 @@ public class ProductServiceImp implements IProductService {
             currentProductEntity.setProductManufacturingDate(productDTO.getProductManufacturingDate());
 
 
-            productDao.saveProduct(currentProductEntity);
+            productDao.updateProduct(currentProductEntity);
 
             ModelMapper modelMapper = new ModelMapper();
             return modelMapper.map(currentProductEntity, ProductDTO.class);
@@ -93,9 +88,9 @@ public class ProductServiceImp implements IProductService {
         if(productEntity.isPresent()){
             ProductEntity currentProductEntity = productEntity.get();
             this.productDao.deleteProduct(currentProductEntity);
-            return "Usuario con ID "+ id + " ha sido eliminado";
+            return "Producto con ID "+ id + " ha sido eliminado";
         }else {
-            return "El usuario con ID "+ id +"no existe";
+            return "El producto con ID "+ id +"no existe";
         }
 
     }

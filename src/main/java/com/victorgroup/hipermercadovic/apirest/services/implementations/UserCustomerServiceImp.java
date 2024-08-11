@@ -5,6 +5,8 @@ import com.victorgroup.hipermercadovic.apirest.dto.ProductDTO;
 import com.victorgroup.hipermercadovic.apirest.dto.UserDTO;
 import com.victorgroup.hipermercadovic.apirest.models.UserEntity;
 import com.victorgroup.hipermercadovic.apirest.services.interfaces.IUserCustomerService;
+import de.mkammerer.argon2.Argon2;
+import de.mkammerer.argon2.Argon2Factory;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,12 @@ public class UserCustomerServiceImp implements IUserCustomerService {
 
     @Override
     public UserDTO createUser(UserDTO userDTO) {
+        Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
+
+        String hash = argon2.hash(1, 1024,1, userDTO.getUserPassword());
+
+        userDTO.setUserPassword(hash);
+
         try{
             ModelMapper modelMapper = new ModelMapper();
             UserEntity userEntity = modelMapper.map(userDTO, UserEntity.class);

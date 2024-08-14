@@ -388,9 +388,12 @@ INSERT INTO producto (producto_nombre, producto_descripcion, producto_precio, pr
 -- Confirmar transacción
 COMMIT;
 
-SELECT * FROM producto;
+ALTER TABLE usuario MODIFY COLUMN contraseña_usuario varchar(255);
+
+
 /*
 -- PRUEBAS
+SELECT * FROM producto;
 SELECT * FROM rol_usuario;
 INSERT INTO usuario (nombre_usuario, contraseña_usuario,rol_usuario_id_rol_usuario)
 VALUES ("pedro","picapiedradijoasi1",1);

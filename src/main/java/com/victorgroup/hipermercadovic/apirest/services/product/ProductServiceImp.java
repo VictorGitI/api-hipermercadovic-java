@@ -1,7 +1,7 @@
 package com.victorgroup.hipermercadovic.apirest.services.product;
 
 
-import com.victorgroup.hipermercadovic.apirest.dto.ProductDto;
+import com.victorgroup.hipermercadovic.apirest.dto.ProductEntityDto;
 import com.victorgroup.hipermercadovic.apirest.exceptions.AlreadyExistsException;
 import com.victorgroup.hipermercadovic.apirest.exceptions.ResourceNotFoundException;
 import com.victorgroup.hipermercadovic.apirest.models.ProductEntity;
@@ -31,8 +31,8 @@ public class ProductServiceImp implements IProductService {
     }
 
     @Override
-    public ProductDto convertToDto(ProductEntity product) {
-        ProductDto productDto = modelMapper.map(product, ProductDto.class);
+    public ProductEntityDto convertToDto(ProductEntity product) {
+        ProductEntityDto productDto = modelMapper.map(product, ProductEntityDto.class);
 
         return productDto;
     }
@@ -46,7 +46,7 @@ public class ProductServiceImp implements IProductService {
     }
 
     @Override
-    public List<ProductDto> getConvertedProducts(List<ProductEntity> products) {
+    public List<ProductEntityDto> getConvertedProducts(List<ProductEntity> products) {
         return products.stream().map(this::convertToDto).toList();
     }
 

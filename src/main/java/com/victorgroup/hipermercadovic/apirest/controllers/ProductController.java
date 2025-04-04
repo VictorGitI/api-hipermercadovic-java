@@ -1,6 +1,6 @@
 package com.victorgroup.hipermercadovic.apirest.controllers;
 
-import com.victorgroup.hipermercadovic.apirest.dto.ProductDto;
+import com.victorgroup.hipermercadovic.apirest.dto.ProductEntityDto;
 import com.victorgroup.hipermercadovic.apirest.exceptions.AlreadyExistsException;
 import com.victorgroup.hipermercadovic.apirest.exceptions.ResourceNotFoundException;
 import com.victorgroup.hipermercadovic.apirest.models.ProductEntity;
@@ -23,7 +23,7 @@ public class ProductController {
     @GetMapping("/all")
     public ResponseEntity<ApiResponse> getAllProducts(){
         List<ProductEntity> products = productService.getAllProducts();
-        List<ProductDto> convertedProducts = productService.getConvertedProducts(products);
+        List<ProductEntityDto> convertedProducts = productService.getConvertedProducts(products);
         return ResponseEntity.ok(new ApiResponse("Success", convertedProducts));
     }
 
@@ -31,7 +31,7 @@ public class ProductController {
     public ResponseEntity<ApiResponse> getProductById(@PathVariable Long productId){
         try {
             ProductEntity product = productService.getProductById(productId);
-            ProductDto productDto = productService.convertToDto(product);
+            ProductEntityDto productDto = productService.convertToDto(product);
             return ResponseEntity.ok(new ApiResponse("Success", productDto));
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
@@ -43,7 +43,7 @@ public class ProductController {
     public ResponseEntity<ApiResponse> addProduct(@RequestBody AddProductRequest product){
         try {
             ProductEntity theProduct = productService.addProduct(product);
-            ProductDto productDto = productService.convertToDto(theProduct);
+            ProductEntityDto productDto = productService.convertToDto(theProduct);
             return ResponseEntity.ok(new ApiResponse("Update Product success", productDto));
         } catch (AlreadyExistsException e) {
             return ResponseEntity.status(CONFLICT).body(new ApiResponse(e.getMessage(), null));

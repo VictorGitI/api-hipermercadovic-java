@@ -6,6 +6,7 @@ import com.victorgroup.hipermercadovic.apirest.exceptions.AlreadyExistsException
 import com.victorgroup.hipermercadovic.apirest.exceptions.ResourceNotFoundException;
 import com.victorgroup.hipermercadovic.apirest.models.UserEntity;
 import com.victorgroup.hipermercadovic.apirest.request.CreateUserRequest;
+import com.victorgroup.hipermercadovic.apirest.request.UserUpdateRequest;
 import com.victorgroup.hipermercadovic.apirest.response.ApiResponse;
 import com.victorgroup.hipermercadovic.apirest.services.user.IUserService;
 import lombok.RequiredArgsConstructor;
@@ -44,5 +45,24 @@ public class UserController {
 
     }
 
+    @PutMapping("/{userId}/update")
+    public ResponseEntity<ApiResponse> updateUser(@RequestBody UserUpdateRequest request, @PathVariable Long userId) {
+        try {
+            UserEntity user = userService.updateUserEntity(request, userId);
+            UserEntityDto userDto = userService.convertUserToDto(user);
+            return ResponseEntity.ok(new ApiResponse("Update User Success!", userDto));
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
+        }
+    }
+    @DeleteMapping("/{userId}/delete")
+    public ResponseEntity<ApiResponse> deleteUser(@PathVariable Long userId){
+        try {
+            userService.deleteUser(userId);
+            return ResponseEntity.ok(new ApiResponse("Delete user success!", null));
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
+        }
+    }
 
 }

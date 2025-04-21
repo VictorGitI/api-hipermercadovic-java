@@ -7,6 +7,7 @@ import com.victorgroup.hipermercadovic.apirest.exceptions.ResourceNotFoundExcept
 import com.victorgroup.hipermercadovic.apirest.models.UserEntity;
 import com.victorgroup.hipermercadovic.apirest.repository.UserEntityRepository;
 import com.victorgroup.hipermercadovic.apirest.request.CreateUserRequest;
+import com.victorgroup.hipermercadovic.apirest.request.UserUpdateRequest;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -45,6 +46,22 @@ public class UserServiceImp implements IUserService {
                     userEntity.setLastName(req.getLastName());
                     return userRepository.save(userEntity);
                 }) .orElseThrow(() -> new AlreadyExistsException("Oops!" +request.getEmail() +" already exists!"));
+    }
+
+    @Override
+    public UserEntity updateUserEntity(UserUpdateRequest request, Long id) {
+        return userRepository.findById(id).map(existingUser ->{
+            existingUser.setFirstName(request.getFirstName());
+            existingUser.setLastName(request.getLastName());
+            return userRepository.save(existingUser);
+        }).orElseThrow(()-> new ResourceNotFoundException("User Not found"));
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+        userRepository.findById(id).ifPresentOrElse(userRepository::delete, () ->{
+            throw new ResourceNotFoundException("User not found");
+        });
     }
 
 
